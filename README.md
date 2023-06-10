@@ -18,8 +18,10 @@ Cuando se realiza un cambio de color en los métodos se crea un pointer cut en e
 
 Ya dentro del advice, se imprime en consola el color actual. Este aspecto es el llamado Observador, que observa a todos los sujetos, en este caso son los eventos de los botones del controlador `observerController`.
 
-#### Notificación por pantalla al observador al cambiar el color de fondo
+#### Notificación por pantalla al observador al cambiar el color de fondo (Funcionalidad Adicional ejemplo de Cross-Cutting concern)
 
 Después de imprimir por consola se despligua una noficación por pantalla con el código del color seleccionado. Este es un ejemplo de Cross-cutting concern por que estamos separando el notificar al usuario sobre sus cambios de la lógica dentro del controlador.
 
 En resumen, el aspecto `ColorAspect` implementa el patrón observador al actuar como observador de los cambios de color en el controlador `observerController` y notificar al controlador sobre esos cambios mediante la interfaz `ColorObserver`. Esto permite una separación clara entre el código relacionado con el cambio de color y la funcionalidad adicional en el controlador.
+
+![Imagen1](Imagen-Aspectos.JPG)
