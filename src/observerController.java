@@ -1,9 +1,13 @@
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class observerController implements  ColorChangeObserver{
+public class observerController implements Initializable, ColorChangeObserver{
 
     @FXML
     private Button botonAzul;
@@ -47,5 +51,11 @@ public class observerController implements  ColorChangeObserver{
         int b = (int) (color.getBlue() * 255);
         return String.format("#%02X%02X%02X", r, g, b);
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
