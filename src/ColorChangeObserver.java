@@ -1,5 +1,5 @@
 import javafx.scene.paint.Color;
 
 public interface ColorChangeObserver {
-	void onColorChange(Color color);
+	void notifyColor(Color color);
 }

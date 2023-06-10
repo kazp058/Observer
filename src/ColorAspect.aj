@@ -1,67 +1,20 @@
-import org.aspectj.lang.annotation.Pointcut;
-
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
-import javafx.scene.Scene;
-
-import java.util.Arraylist;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 
 public aspect ColorAspect {
-
-	private ColorChangeObserver observer;
-	public static Stage stage;
-
-    public void addObserver(ColorChangeObserver observer) {
-    	this.observer = observer;
+	pointcut colorObserverPointcut(Color color) : call(void notifyColor(Color)) && args(color);
+	//Advice para los botones observados.
+	after(Color color) returning : colorObserverPointcut(color) {
+		System.out.println("El color actual es = " +color.toString());
+		//Implementación del aspecto adicional cross cutting. Saldrá una notificación con el color escogido
+		showNotification(color);
+	}
+	private void showNotification(Color color) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Cambio de Color - FUNCIÓN ADICIONAL");
+        alert.setHeaderText("Nuevo color seleccionado");
+        alert.setContentText("El color actual es: " + color);
+        alert.showAndWait();
     }
-
-
-    @Pointcut("execution(void observerController.botonRojoClick()) || " +
-              "execution(void observerController.botonVerdeClick()) || " +
-              "execution(void observerController.botonAzulClick())")
-    public void changeColorMethods() {}
-	
-    @After("changeColorMethods()");
-    public void afterChangeColor(JoinPoint joinPoint){
-      Color newColor = getColorFromJoinPoint(joinPoint);
-
-      if(newColor != null){
-        if(observer != null){
-          observer.onColorChange(newColor);
-        }
-        if(stage != null){
-          Scene scene = stage.getScene();
-          if(scene != null){
-            scene.setFill(newColor);
-          }
-        }
-      }
-    }
-
-    private Color getColorFromJoinPoint(JoinPoint joinPoint){
-      String methoName = joinPoint.getSignature().getName();
-
-      if(methodName.equals("botonRojoClick")){
-        System.out.println("Color actual: "+Color.RED.toString());
-        return Color.RED;
-      }else if(methodName.equals("botonVerdeClick")){
-        System.out.println("Color actual: "+Color.GREEN.toString());
-        return Color.GREEN;
-      }else if(){
-        System.out.println("Color actual: "+Color.BLUE.toString());
-        return Color.BLUE;
-        
-      }
-      return null;
-    }
-
 }

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.Stage;
 
 public class AppObserver extends Application {
 
@@ -16,22 +15,14 @@ public class AppObserver extends Application {
     @Override
     public void start(Stage primaryStage) {
     	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("observer.fxml"));
-			Parent root = (Parent) loader.load();
-			observerController controller = loader.getController();
-			controller.setStage(primaryStage);
+			Parent root = FXMLLoader.load(getClass().getResource("observer.fxml"));
 			primaryStage.setScene(new Scene(root, 650,500));
 			primaryStage.setTitle("Tarea Aspectos");
-			primaryStage.show();
-//			root = FXMLLoader.load(getClass().getResource("observer.fxml"));
-//			primaryStage.setScene(new Scene(root, 650,500));
-//			primaryStage.setTitle("Tarea Aspectos");
-//	        primaryStage.show();
+	        primaryStage.show();
 		} catch (IOException e) {
 			System.out.println("Error al crear la ventana.");
 			e.printStackTrace();
 			
 		}
-
     }
 }

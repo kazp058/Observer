@@ -1,18 +1,9 @@
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-public class observerController implements  Initializable, ColorChangeObserver{
+public class observerController implements  ColorChangeObserver{
 
     @FXML
     private Button botonAzul;
@@ -22,63 +13,39 @@ public class observerController implements  Initializable, ColorChangeObserver{
 
     @FXML
     private Button botonVerde;
+    
     @FXML
     private VBox rootPane;
     
-    private Stage stage;
     
-    private Scene scene;
-    
-    private ColorAspect aspect;
-    
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    	ColorAspect.stage = (Stage) stage;
-    }
-    
+    //Sujetos
     @FXML
     private void botonRojoClick() {
-        System.out.println("Se ha hecho clic en el botón Rojo");
-        rootPane.setStyle("-fx-background-color:  RED;");
+        notifyColor(Color.RED);
+        
     }
 
     @FXML
     private void botonVerdeClick() {
-        System.out.println("Se ha hecho clic en el botón Verde");
-        rootPane.setStyle("-fx-background-color: GREEN;");
+        notifyColor(Color.GREEN);
     }
 
     @FXML
     private void botonAzulClick() {
-        System.out.println("Se ha hecho clic en el botón Azul");
-        rootPane.setStyle("-fx-background-color: BLUE;");
+        notifyColor(Color.BLUE);
     }
-
+    //Observador
     @Override
-    public void onColorChange(Color color) {
-         Platform.runLater(() -> {
-             if (color.equals(Color.RED)) {
-            	 rootPane.setStyle("-fx-background-color:  RED;");
-             } else if (color.equals(Color.GREEN)) {
-            	 rootPane.setStyle("-fx-background-color: GREEN;");
-             } else if (color.equals(Color.BLUE)) {
-            	 rootPane.setStyle("-fx-background-color: BLUE;");
-             }
-        });
+    public void notifyColor(Color color) {
+    	String colorName = this.toHexString(color);
+    	rootPane.setStyle("-fx-background-color: "+colorName+";");
     }
 
-	public Scene getScene() {
-		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
+	private String toHexString(Color color) {
+        int r = (int) (color.getRed() * 255);
+        int g = (int) (color.getGreen() * 255);
+        int b = (int) (color.getBlue() * 255);
+        return String.format("#%02X%02X%02X", r, g, b);
+    }
+	
 }
