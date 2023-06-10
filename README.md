@@ -1,4 +1,4 @@
-#Patrón Observador: Implementación en el caso de `ColorAspect` y `observerController`
+# Patrón Observador: Implementación en el caso de `ColorAspect` y `observerController`
 
 En este caso, el aspecto `ColorAspect` actúa como el observador y el controlador `observerController` actúa como el sujeto.
 
